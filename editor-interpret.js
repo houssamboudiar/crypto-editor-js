@@ -28,7 +28,8 @@ let fetchCoins = (() => fetch('https://api.coinpaprika.com/v1/coins/')
     })
     .catch((err) => {
         errors.innerHTML = `There has been a problem with fetch operation ${err}`;
-    }))();
+    })
+)();
 
 // Fetch markets of the defined coinId from Coinpaprika API.
 let fetchCoinExchangeById = (coinId) => fetch(`https://api.coinpaprika.com/v1/coins/${coinId}/markets`)
@@ -112,7 +113,7 @@ const handleChange = (event) => {
         // Adressing the string we want to replace using REGEX
         const regexExchange = new RegExp(`({{ *)(Exchange)(\/)${Symbol}( *}})`, 'g');
         // Updating text result with out fetched value
-        results.value = lastUpdate.replace(regexExchange, `${value[2] || 'fetching...'}`);
+        results.value = lastUpdate.replace(regexExchange, `${value[2] || '[fetching...]'}`);
         // Saving our Text for the next update
         lastUpdate = results.value;
     })
