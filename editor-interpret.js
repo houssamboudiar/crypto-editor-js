@@ -1,9 +1,22 @@
+// DOM elements
 const entry = document.getElementById('entry');
 const results = document.getElementById('output');
 const loading = document.getElementById('loading');
 const errors = document.getElementById('errors');
 const exchange = document.getElementById('exchange');
 
+let initialText = ''; 
+// Needed Regex Expressions
+let nameMethod = /({{ *)(Name)(\/)([A-Z]{2,})( *}})/g;
+let exchangeMethod = /({{ *)(Exchange)(\/)([A-Z]{2,})( *}})/g;
+let SymbolRegex = /([A-Z]{2,})/g;
+
+// Method Maps
+let coinNames = new Map();
+let coinExchange = new Map();
+
+// Fetch all coins from Coinpaprika unfortunately it's a lot of data cause the API cant serve Get by symbol.
+// It loads only once to preserve performance.
 let fetchCoins = (() => fetch('https://api.coinpaprika.com/v1/coins/')
     .then(response => response.json())
     .then((data) => {
@@ -17,6 +30,7 @@ let fetchCoins = (() => fetch('https://api.coinpaprika.com/v1/coins/')
         errors.innerHTML = `There has been a problem with fetch operation ${err}`;
     }))();
 
+// Fetch markets of the defined coinId from Coinpaprika API.
 let fetchCoinExchangeById = (coinId) => fetch(`https://api.coinpaprika.com/v1/coins/${coinId}/markets`)
     .then(response => {
         if (!response.ok) return Promise.reject(response);
@@ -31,15 +45,11 @@ let fetchCoinExchangeById = (coinId) => fetch(`https://api.coinpaprika.com/v1/co
         }
     });
 
-let initialText = ''; 
-let nameMethod = /({{ *)(Name)(\/)([A-Z]{2,})( *}})/g;
-let exchangeMethod = /({{ *)(Exchange)(\/)([A-Z]{2,})( *}})/g;
-let SymbolRegex = /([A-Z]{2,})/g
-let coinNames = new Map();
-let coinExchange = new Map();
-
+// Gets ID from Coins data using the symbol we extracted from the string
 findIdBySymbol = (coins, symbol) => coins.find(element => element.symbol == symbol)?.id;
+// Gets Name from Coins data using the symbol we extracted from the string
 findNameBySymbol = (coins, symbol) => coins.find(element => element.symbol == symbol)?.name;
+// Finds the price of the mentioned Coin by default Coinbase (Hardcoded) else it loads the first Market available else it returns Not Found.
 findPriceById = (markets) => markets?.find(element => element.exchange_id === 'coinbase')?.quotes.USD.price || markets[0]?.quotes.USD.price || 'Not found';
 
 const interpretNameMatches = (initialText) => {
@@ -112,7 +122,6 @@ const handleChange = (event) => {
 
 entry.addEventListener('input', handleChange);
 entry.addEventListener('keyup', handleChange);
-
 
 /*
 ENTRY TEST 1
