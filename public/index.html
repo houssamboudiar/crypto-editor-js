@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .content {
+            display: flex;
+            text-align: center;
+        }
+
+        .entry {
+            margin: 20px;
+        }
+
+        #entry {
+            white-space: pre-wrap;
+        }
+
+        .output {
+            margin: 20px;
+        }
+
+        button {
+            height: 50px;
+            width: 50px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .interpret-button {
+            padding-top: 80px;
+        }
+
+        #loading {
+            padding-left: 20px;
+        }
+
+        #errors {
+            color: red;
+            padding-left: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- TODO:FixME -->
+    <div id="box">
+        <h1>Crypto Editor</h1>
+        <div class="content">
+            <div class="entry">
+                <textarea id="entry" name="entry" rows="10" cols="80" disabled></textarea>
+            </div>
+            <div class="output">
+                <textarea id="output" name="output" rows="10" cols="80" disabled></textarea>
+            </div>
+        </div>
+        <h2 id="loading">Loading ...</h2>
+        <div id="errors">
+        </div>
+    </div>
+    <script src="/editor-interpret.js"></script>
+</body>
+</html>

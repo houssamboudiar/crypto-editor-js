@@ -1,0 +1,13 @@
+{
+  "name": "crypto-editor",
+  "version": "1.0.0",
+  "description": "Editor’s prototype for a redactor of a cryptocurrencie’s blog.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Houssam Boudiar",
+  "license": "ISC",
+  "dependencies": {
+  }
+}
